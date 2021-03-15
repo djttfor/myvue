@@ -1,0 +1,16 @@
+{
+  "arr": [
+    {
+      "name": "jimmy",
+      "password": "123"
+    },
+    {
+      "name": "tom",
+      "password": "456"
+    },
+    {
+      "name": "jerry",
+      "password": "789"
+    }
+  ]
+}
