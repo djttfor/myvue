@@ -1,5 +1,5 @@
 <template>
-  <div id="app" >
+  <div>
     <el-container style="height: 700px">
       <el-aside width="205px" >
         <el-menu
@@ -12,21 +12,13 @@
           active-text-color="#ffd04b" style="height: 100%">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <i class="el-icon-user-solid"></i>
+              <span>用户</span>
             </template>
             <el-menu-item-group>
               <el-menu-item index="1-1" @click="toMain">
-              首页
+                全部用户
               </el-menu-item>
-              <el-menu-item index="1-2" @click="toMy">
-                内容</el-menu-item>
-              <el-menu-item index="1-3" @click="toLogin">
-                登录</el-menu-item>
-              <el-menu-item index="1-4" @click="toInfo">
-                info</el-menu-item>
-              <el-menu-item index="1-5" @click="$router.push('/bt')">
-                bt商品页</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="2">
@@ -44,12 +36,6 @@
             </template>
             <el-menu-item-group>
               <el-menu-item index="4-1">选项1</el-menu-item>
-              <el-menu-item index="4-2">选项2</el-menu-item>
-              <el-menu-item index="4-2">选项2</el-menu-item>
-              <el-menu-item index="4-2">选项2</el-menu-item>
-              <el-menu-item index="4-2">选项2</el-menu-item>
-              <el-menu-item index="4-2">选项2</el-menu-item>
-              <el-menu-item index="4-2">选项2</el-menu-item>
               <el-menu-item index="4-2">选项2</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -92,13 +78,8 @@
     </el-container>
   </div>
 </template>
-
 <script>
-
-
 export default {
-
-  name: 'App',
   data() {
     return {
       activeIndex: '1',
@@ -118,11 +99,11 @@ export default {
     },
     toMain(){
 
-      this.$router.push('/main');
+      this.$router.push('/main/iv');
 
     },
     toMy(){
-      this.$router.push('/my/今晚打老虎/2');
+      this.$router.push('/main/my/今晚打老虎/2');
     },
     toLogin(){
       this.$router.push('/login');
@@ -138,13 +119,15 @@ export default {
       })
     }
   },
-  created() {
-    //this.$router.push("/iv")
-  }
+  beforeRouteEnter(to,from,next){//进入路由前
+    next(vm => {
+      vm.open1('登录成功，欢迎您')
+      vm.$router.push("/main/iv")
+    });
+  },
 }
 </script>
-
-<style>
+<style s>
 .el-header, .el-footer {
   background-color: #B3C0D1;
   color: #333;

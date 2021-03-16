@@ -4,7 +4,8 @@
     <button @click="getData2">Post发对象</button>
     <button @click="getData3">Post发数组</button>
     <button @click="getData4">Post发数组2</button>
-    <button @click="getData5">Post发对象</button>
+    <button @click="getData5">Post发对象</button><br>
+    <button @click="getData6">Post发数组2</button>
     <router-view/>
   </div>
 </template>
@@ -38,8 +39,7 @@ export default {
           "password": "123"
         }
       ],
-      t5:
-        {
+      t5: {
           "username": "jimmy",
           "password": "123",
           "phone": "123",
@@ -54,10 +54,23 @@ export default {
             }
           ]
         },
-
+      t6:{
+        "username": "jimmy",
+        "password": "123",
+      }
     }
   },
   methods:{
+    getData6(){
+      this.axios.post(
+        'http://localhost:8086/ssx/user/home12',this.t6,{headers:{"Content-Type":"application/x-www-form-urlencoded"}}
+      ).then(response=>{
+        //alert(Object.values(response.data));
+        console.log(response.data)
+      }).catch(error=>{
+        alert(error);
+      });
+    },
     getData5(){
       this.axios.post(
         'http://localhost:8086/ssx/user/home11',this.t5

@@ -21,8 +21,6 @@ Vue.component('MyContent',myContent);
 Vue.component('Footer',Footer);
 
 
-
-
 //相当于全局拦截器
 router.beforeEach((to,from,next)=>{
  // alert(to.path);

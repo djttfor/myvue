@@ -7,6 +7,7 @@ import info from "../views/user/info";
 import notFound from "../views/notFound";
 import bt from "../components/bt";
 import test1 from "../components/test1";
+import iv from "../views/iv";
 Vue.use(VueRouter);//安装路由
 
 const originalPush = VueRouter.prototype.push;
@@ -38,6 +39,7 @@ export default new VueRouter({
     {path:'*',component: notFound},//404页面
     {path:'/bt',component:bt},
     {path:"/test1",component:test1},
+    {path:"/iv",component:iv},//首页
   ],
 
 });
