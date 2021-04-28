@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>人事记录统计</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "StaRecord"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

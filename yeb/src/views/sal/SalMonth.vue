@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>月末处理</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "SalMonth"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

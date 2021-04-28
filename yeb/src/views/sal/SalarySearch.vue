@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>工资表查询</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "SalSearch"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>员工积分统计</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "StaScore"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

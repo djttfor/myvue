@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>员工奖惩</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "PerEc"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>员工调动</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "PerMv"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

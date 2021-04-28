@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>员工培訓</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "PerTrain"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>员工账号设置</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "SalSobCfg"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

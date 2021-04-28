@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>基本资料</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "EmpBasic"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

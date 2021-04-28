@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>系统管理</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "SysConfig"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

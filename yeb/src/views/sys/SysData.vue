@@ -1,15 +1,13 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+<div>备份恢复数据库</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: "SysData"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
