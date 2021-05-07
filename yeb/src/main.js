@@ -5,34 +5,30 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import iServer from './config/global'
-import vCodeCookieName from './config/global'
-import {setCookie,getCookie,delCookie} from "./assets/cookie";
+
+import './styles/element-variables.scss'
+import 'normalize.css/normalize.css'
+import '@/styles/index.scss'
+
+import './permission' // permission control
+
+import iConstant from "./config/global";
 import store from './store'
-import {initMenu} from "./utils/menus";
 import 'font-awesome/css/font-awesome.css'
 
+import '@/icons' // icon
+import './utils/error-log' // error log
 
-Vue.prototype.iBaseUrl = iServer;
-Vue.prototype.$vCodeCookieName = vCodeCookieName;
+import * as filters from './filters' // global filters
+
+
+Vue.prototype.iConstant = iConstant;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 
-//根据名称获取cookie
-Vue.prototype.$cookieStore = {setCookie,getCookie,delCookie};
-
-router.beforeEach((to, from, next) => {
-
-  //判断用户是否已经登录
-  if(window.sessionStorage.getItem('tokenStr')){
-
-    //初始化菜单
-    initMenu(router,store);
-    next();
-  }else if(to.path==='/login'){
-    next();
-  }
-
+// register global utility filters
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
 })
 
 /* eslint-disable no-new */

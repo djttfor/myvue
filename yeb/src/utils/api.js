@@ -1,16 +1,17 @@
 import axios from "axios";
 import { Message } from 'element-ui';
 import router from '../router'
-import Vue from "vue";
+import iConstant from "../config/global";
 
 //请求拦截器
-axios.interceptors.request.use(success=>{
+axios.interceptors.request.use(config=>{
   if(window.sessionStorage.getItem('tokenStr')){
-    success.headers['Authorization'] = window.sessionStorage.getItem('tokenStr');
+    config.headers['Authorization'] = window.sessionStorage.getItem('tokenStr');
   }
-  return success;
+  return config;
 },error => {
-  console.error(error);
+  console.log(error) // for debug
+  return Promise.reject(error)
 })
 
 
@@ -59,7 +60,7 @@ export const postRequest = (url,params)=>{
   //Message.info(`${Vue.prototype.iBaseUrl.iServer+url}`)
   return axios({
     method:'post',
-    url:`${Vue.prototype.iBaseUrl.iServer+url}`,
+    url:`${iConstant.iServer+url}`,
     data:params
   })
 }
@@ -67,6 +68,6 @@ export const postRequest = (url,params)=>{
 export const getRequest = (url)=>{
   return axios({
     method:'get',
-    url:`${Vue.prototype.iBaseUrl.iServer+url}`,
+    url:`${iConstant.iServer+url}`,
   })
 }

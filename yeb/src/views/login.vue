@@ -36,12 +36,13 @@
 import {getRequest, postRequest} from "../utils/api";
 import {Message} from "element-ui";
 import Vue from "vue";
+import Cookies from 'js-cookie'
 
 export default {
   name: "login",
   data() {
     return {
-      captchaUrl: this.iBaseUrl.iServer+'/captcha?time='+new Date(),//需要增加时间参数，当你再次点击时是不同的url
+      captchaUrl: this.iConstant.iServer+'/captcha?time='+new Date(),//需要增加时间参数，当你再次点击时是不同的url
       ruleForm: {
         username:'',
         password: '',
@@ -78,10 +79,11 @@ export default {
   },
   methods: {
     changeImage(){
-      this.captchaUrl = this.iBaseUrl.iServer+'/captcha?time='+new Date();
+      this.captchaUrl = this.iConstant.iServer+'/captcha?time='+new Date();
     },
     getCodeToken(){
-      this.ruleForm.codeToken = this.$cookieStore.getCookie(this.$vCodeCookieName.vCodeCookieName);
+      //this.ruleForm.codeToken = this.$cookieStore.getCookie(this.$vCodeCookieName.vCodeCookieName);
+      this.ruleForm.codeToken = Cookies.get(this.iConstant.vCodeCookieName)
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -114,6 +116,10 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      const user={
+        name:'jimmy',password:'123'
+      }
+      alert()
     },
 
   },
