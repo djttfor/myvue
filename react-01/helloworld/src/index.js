@@ -2,15 +2,17 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import 'element-theme-default';
 import './body.css'
-import MouseTest from './components/mouseTest';
-import RouterTest from './router';
+import ITimer from './components/ITimer';
+import App from './router/components/app';
+import { BrowserRouter as Router} from 'react-router-dom'
 
 
 
+const view =
+    <div>
+       <Router>
+           <App/>
+       </Router>
+    </div>
 
-const view = 
-<div>
-    <RouterTest/>
-</div>
-
-ReactDom.render(view,document.getElementById('root'))
+ReactDom.render(view, document.getElementById('root'))

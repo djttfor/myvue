@@ -4,17 +4,15 @@ export default class ITimer extends PureComponent {
 
     constructor(props) {
         super(props)
-    
         this.state = {
-             content: '开始计时',
-             second: 60,
+             content: '发送验证码',
+             second: this.props.second,
              disabled: false
         }
         this.handleTimer = this.handleTimer.bind(this)
-        // this.countDown = this.countDown.bind(this)
-        // this.toggleButtonState = this.toggleButtonState.bind(this)
+
     }
-    handleTimer(e){
+    handleTimer(){
         this.toggleButtonState()
     }
 
@@ -33,7 +31,7 @@ export default class ITimer extends PureComponent {
 
     initSecond(){
         this.setState({
-            second: 60
+            second: this.props.second
         })
     }
 
@@ -44,13 +42,15 @@ export default class ITimer extends PureComponent {
     }
 
     componentDidUpdate() {
-        if(this.state.second===50){
+        if(this.state.second===0){
             clearInterval(this.timer)
             this.toggleButtonState()
             this.initSecond()
-            this.setContent('重新计时')
+            this.setContent('重新发送')
+            //执行回调
+            this.props.callback()
         }
-        if(this.state.disabled && this.state.second===60){                   
+        if(this.state.disabled && this.state.second===this.props.second){                   
             this.timer = setInterval(() => {            
                 this.countDown()
             }, 1000);
@@ -60,9 +60,8 @@ export default class ITimer extends PureComponent {
     
     render() {
         return (
-            <div>
+            <div style={{display: 'inline'}}>
                 <button onClick={this.handleTimer} disabled={this.state.disabled}>{this.state.content}</button>  <br />
-                <button onClick={()=>{this.props.history.go(-1)}}>返回上一页</button>
                 <p>{this.state.second}</p>
                 <p>{this.state.content}</p>
             </div>

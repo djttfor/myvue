@@ -11,11 +11,13 @@ class Btn extends React.Component{
         console.log(e)
         console.log(num)
     }
+
     
 
     render(){
         const isToggle = this.state.isToggle
         return(
+            
             <div>
                 <button onClick={this.handleClick.bind(this, 111)}>点我</button>
             </div>
