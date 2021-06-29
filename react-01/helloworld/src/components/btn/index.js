@@ -11,6 +11,7 @@ class Btn extends React.Component{
         console.log(e)
         console.log(num)
     }
+    
 
     render(){
         const isToggle = this.state.isToggle
