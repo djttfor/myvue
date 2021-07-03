@@ -1,18 +1,24 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import 'element-theme-default';
 import './body.css'
-import ITimer from './components/ITimer';
-import App from './router/components/app';
-import { BrowserRouter as Router} from 'react-router-dom'
+import StoreDemo from './store/storeDemo';
+import 'antd/dist/antd.css';
+import ScrollTest from './page/ScrollTest';
+import ReactReduxTest from './store/reactReduxTest';
+import { Count } from './container/Count';
+import store from './store';
+import { Provider } from 'react-redux';
 
 
 
-const view =
+const view = (
     <div>
-       <Router>
-           <App/>
-       </Router>
+        <Provider store={store}>
+            <p>dddddddddd</p>
+            <Count />
+        </Provider>
+
     </div>
+)
 
 ReactDom.render(view, document.getElementById('root'))

@@ -2,16 +2,16 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     width: 500px;
-    border: 1px solid red;
     margin: 0 auto;
     margin-top: 30px;
     height: 200px;
+    border-bottom: 1px solid #E6E8EE;
     .header{
         text-align: center;
         height: 50px;
-        border: 1px solid red;
         font-size: 25px;
         line-height: 50px;
+        border-bottom: 1px solid #E6E8EE;
     }
     .sidebar{
         float: left;
@@ -19,12 +19,31 @@ export const Container = styled.div`
         div{
             height: 75px;
             text-align: center;
-            line-height: 75px;
+            line-height: 75px;        
+            a{                
+                text-decoration: none;
+                display: block;
+                border: 1px solid #E6E8EE;
+                border-radius: 5px;
+                color: black;
+            }
         }
+        .clckho{
+            :hover{
+                background-color: #E6E8EE;
+            }         
+        }   
+        .clicked{  
+            background-color: #416EF0;
+            color:white; 
+            :hover{
+                background-color: #416EF0;
+            }                 
+         }
+         
     }
     .main{
         float: left;
-        border-left: 1px green solid;
         height: 150px;
         width: 70%;
         text-align: center;
