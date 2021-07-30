@@ -32,28 +32,28 @@ class App extends PureComponent {
     }
 
     componentDidMount() {
-        this.getMuisic();
+       // this.getMuisic();
     }
 
-    getMuisic(){
-        axios.get('/music/music/v1/list').then((res) => {
-            if(res.models.length > 0){
-                const options = {
-                    container: document.getElementById('player'),
-                    fixed: true,
-                    theme: '#fe9600',
-                    listMaxHeight: '300px',
-                    listFolded: false,
-                    lrcType: 3,
-                    audio:res.models
-                };
-                const ap = new APlayer(options);
-                ap.on('ended', function () {
-                    console.log('player ended');
-                });
-            }
-        })
-    }
+    // getMuisic(){
+    //     axios.get('/music/music/v1/list').then((res) => {
+    //         if(res.models.length > 0){
+    //             const options = {
+    //                 container: document.getElementById('player'),
+    //                 fixed: true,
+    //                 theme: '#fe9600',
+    //                 listMaxHeight: '300px',
+    //                 listFolded: false,
+    //                 lrcType: 3,
+    //                 audio:res.models
+    //             };
+    //             const ap = new APlayer(options);
+    //             ap.on('ended', function () {
+    //                 console.log('player ended');
+    //             });
+    //         }
+    //     })
+    // }
 }
 
 export default App;

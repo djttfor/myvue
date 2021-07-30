@@ -255,7 +255,7 @@ export const MainWrapper = styled.div`
     }
     
     .entry-content h2:after,.entry-content h1:after {
-        content: "\\00B6";
+        content: "";
         position: absolute;
         color: #ff6d6d;
         font-family: 'Merriweather Sans',Helvetica,Tahoma,Arial,'PingFang SC','Hiragino Sans GB','Microsoft Yahei','WenQuanYi Micro Hei',sans-serif;
@@ -264,21 +264,21 @@ export const MainWrapper = styled.div`
     }
     
     .entry-content h3:after {
-        content: "#";
+        content: "";
         left: 0;
         position: absolute;
         color: #ff6d6d;
     }
     
     .entry-content h4:after {
-        content: "â–Œ";
+        content: "";
         left: 0;
         position: absolute;
         color: #ff6d6d;
     }
     
     .entry-content h5:after {
-        content: "â™¯";
+        content: "";
         left: 0;
         position: absolute;
         color: #ff6d6d;

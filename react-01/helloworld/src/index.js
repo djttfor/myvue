@@ -8,16 +8,13 @@ import ReactReduxTest from './store/reactReduxTest';
 import { Count } from './container/Count';
 import store from './store';
 import { Provider } from 'react-redux';
+import AxiosTest from './components/axiosTest';
 
 
 
 const view = (
     <div>
-        <Provider store={store}>
-            <p>dddddddddd</p>
-            <Count />
-        </Provider>
-
+         <AxiosTest/>
     </div>
 )
 

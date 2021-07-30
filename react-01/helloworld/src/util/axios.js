@@ -1,23 +1,20 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: process.env.REACT_APP_BASE_URL,
 })
 
-// //request interceptor
-// service.interceptors.request.use(
-//   config => {
-
-//     if (store.getters.token) {
-//       config.headers['Authorization'] = 'Bearer' + getToken()
-//     }
-//     return config
-//   },
-//   error => {
-//     console.log(error) // for debug
-//     return Promise.reject(error)
-//   }
-// )
+//request interceptor
+service.interceptors.request.use(
+  config => {
+    console.log(config.url)
+    return config
+  },
+  error => {
+    console.log(error) // for debug
+    return Promise.reject(error)
+  }
+)
 
 // response interceptor
 service.interceptors.response.use(
