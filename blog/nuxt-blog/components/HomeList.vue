@@ -1,7 +1,7 @@
 <template>
   <div :class="className">
     <div class="post-thumb">
-      <nuxt-link :to="{ name: 'article-id', params: { id } }" target="_blank">
+      <nuxt-link :to="{ name: 'article-id', params: { id } }">
         <img :src="thumbnail" alt="" />
       </nuxt-link>
     </div>
@@ -14,7 +14,6 @@
         <nuxt-link
           :to="{ name: 'article-id', params: { id } }"
           class="post-title"
-          target="_blank"
         >
           <h3 class="ellipsis">{{ title }}</h3>
         </nuxt-link>
@@ -37,7 +36,6 @@
           <div class="post-bottom">
             <nuxt-link
               :to="{ name: 'article-id', params: { id } }"
-              target="_blank"
             >
               <i class="iconfont icon-caidan" />
             </nuxt-link>

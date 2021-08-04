@@ -265,6 +265,9 @@ export default {
   position: relative;
   overflow: hidden;
   height: auto;
+  @media (max-width: 768px) {
+     display: none;
+  }
 
  // 插入背景图片
   &:before {  
@@ -786,6 +789,9 @@ export default {
   margin-right: auto;
   background-color: rgba(255, 255, 255, 0.8);
   animation: main 1s;
+  @media (max-width: 768px) {
+     margin-top: 30px;
+  }
 
   @keyframes main {
     0% {

@@ -69,4 +69,9 @@ export default {
 };
 </script>
 <style lang="less">
+#player{
+   @media (max-width: 768px) {
+     display: none;
+  }
+}
 </style>

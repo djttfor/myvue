@@ -2,12 +2,12 @@
   <article class="post post-list post-list-show">
     <div class="post-entry">
       <div class="feature">
-        <nuxt-link :to="{ name: 'article-id', params: { id } }" target="_blank">
+        <nuxt-link :to="{ name: 'article-id', params: { id } }" >
           <img :src="thumbnail" alt="" />
         </nuxt-link>
       </div>
       <h1 class="entry-title">
-        <nuxt-link :to="{ name: 'article-id', params: { id } }" target="_blank">
+        <nuxt-link :to="{ name: 'article-id', params: { id } }">
           {{ title }}
         </nuxt-link>
       </h1>
@@ -19,7 +19,6 @@
         <div class="post-more">
           <nuxt-link
             :to="{ name: 'article-id', params: { id } }"
-            target="_blank"
           >
             <i class="iconfont icon-caidan" />
           </nuxt-link>

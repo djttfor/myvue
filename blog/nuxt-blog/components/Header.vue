@@ -121,11 +121,11 @@
           </span>
         </li>
         <li>
-          <span class="item flex-items">
+          <span class="item flex-items" @click="handlerCategory">
             <i class="iconfont icon-list-ul" />
             <span>分类</span>
           </span>
-          <ul class="sub-menu">
+          <ul class="sub-menu" :class="!show?'sub-menu-none':''">
             <li v-for="(item, index) in categoryNav" :key="index">
               <span
                 class="item flex-items"
@@ -160,7 +160,7 @@
             <a-icon :type="item.icon" />
             <span>{{ item.title }}</span>
           </a>
-          <ul class="sub-menu" v-if="item.child && item.child.length > 0">
+          <ul class="sub-menu" :class="!show?'sub-menu-none':''" v-if="item.child && item.child.length > 0">
             <li v-for="(item, index) in item.child" :key="index">
               <a :href="item.url" target="_blank" class="item flex-items">
                 <span>{{ item.title }}</span>
@@ -187,6 +187,7 @@ export default {
       phoneVisible: false,
       searchVal: "",
       isUser: false,
+      show:false
     };
   },
   computed: {
@@ -268,6 +269,9 @@ export default {
       this.phoneVisible = false;
       document.body.style.height = "";
       document.body.style.overflow = "";
+    },
+    handlerCategory(){
+      this.show = !this.show
     },
   },
 };
@@ -666,6 +670,10 @@ export default {
   }
   .menu {
     position: relative;
+    li span:hover{
+      background-color: #fe9600;
+      color: #fff;
+    }
     &:after {
       position: absolute;
       right: 0px;
@@ -708,5 +716,9 @@ export default {
       font-size: 13px;
     }
   }
+  .sub-menu-none {
+    display: none;
+  }
+  
 }
 </style>

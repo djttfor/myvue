@@ -2,7 +2,7 @@ const env = require('./env')
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Plumemo',
+    title: 'Astolfo',
     htmlAttrs: {
       lang: 'en'
     },

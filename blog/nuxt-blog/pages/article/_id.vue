@@ -150,7 +150,7 @@ marked.setOptions({
 export default {
   head() {
     return {
-      title: `Plumemo-${this.config.name}-${this.data.title}`,
+      title: `Astolfo-${this.data.title}`,
     };
   },
   components: {

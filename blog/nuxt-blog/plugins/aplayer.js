@@ -10,7 +10,6 @@ export default ({ store }) => {
         theme: '#fe9600',
         listMaxHeight: '300px',
         listFolded: false,
-        lrcType: 3,
         audio: list
     };
     const ap = new APlayer(options);
