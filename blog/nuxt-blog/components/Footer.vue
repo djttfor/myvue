@@ -9,8 +9,9 @@
           </span>
         </p>
         <p>
-          © 2020 {{ config.title }}
-          <a href="http://beian.miit.gov.cn/" target="_blank">{{
+          <img :src="require('../assets/images/beian.png')">
+          © 2021 {{ config.title }}
+          <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45122802000038" target="_blank">{{
             config.icp
           }}</a>
         </p>
@@ -43,7 +44,7 @@ export default {
       background-image: url("../assets/images/sakura.svg");
       width: 30px;
       height: 30px;
-      opacity: 0.3;
+      opacity: 0.8;
       margin: 0 auto;
       background-size: cover;
       background-position: center center;

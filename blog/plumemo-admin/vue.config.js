@@ -95,6 +95,11 @@ const vueConfig = {
         changeOrigin: true,
         pathRewrite: { '^/api/blog': '/' }
       }
+      // [process.env.VUE_APP_API_BASE_URL]: {
+      //   target: `https://www.djttfor.cn`,
+      //   changeOrigin: true,
+      //   //pathRewrite: { '^/api/blog': '/' }
+      // }
     }
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     // proxy: {

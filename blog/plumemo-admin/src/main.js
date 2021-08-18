@@ -17,6 +17,10 @@ import './components/global.less'
 import mavonEditor from 'mavon-editor' // makedown
 import 'mavon-editor/dist/css/index.css'
 
+import { Pagination } from "ant-design-vue";
+import 'ant-design-vue/lib/pagination/style/css'
+Vue.component(Pagination.name, Pagination)
+
 Vue.config.productionTip = false
 
 // mount axios Vue.$http and this.$http

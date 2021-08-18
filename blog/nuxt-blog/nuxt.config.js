@@ -17,8 +17,8 @@ export default {
       { rel: 'stylesheet', href: '//at.alicdn.com/t/font_1569838_q17qktt1g1.css' }
     ],
     script: [
-      { src: "https://image.bygit.cn/highlight.min.js" },
-      { src: "https://image.bygit.cn/highlightjs-line-numbers.min.js" },
+      { src:"https://img.djttfor.cn/api/blog/files/886e2c25-9d33-49e6-9dd5-01588b21af7c.js" },//代码区高亮
+      { src:"https://img.djttfor.cn/api/blog/files/3d6778d2-932d-4399-9e3b-336502f29c1a.js" },//代码行号高亮
       { src: "https://hm.baidu.com/hm.js?ec46c045bff2ebcd37911ed94014e720" } //百度统计
     ],
   },
@@ -29,6 +29,9 @@ export default {
     'assets/css/atom.less'
   ],
   
+  // { src: "https://image.bygit.cn/highlight.min.js" },
+  // { src: "https://image.bygit.cn/highlightjs-line-numbers.min.js" },
+  // { src: "https://hm.baidu.com/hm.js?ec46c045bff2ebcd37911ed94014e720" }
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [

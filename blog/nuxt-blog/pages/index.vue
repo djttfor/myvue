@@ -37,8 +37,7 @@
             <p class="ellipsis">
               <i class="iconfont icon-quote-left" />
               <span>{{
-                userInfo.introduction ||
-                "THE DEEP DARK FANTASY♂"
+                userInfo.introduction || "THE DEEP DARK FANTASY♂"
               }}</span>
               <i class="iconfont icon-quoteright" />
             </p>
@@ -57,21 +56,35 @@
                 :key="index"
               >
                 <img :src="item.icon" alt="" v-if="item.showType === 1" />
-                <div class="img-box" style="pointer-events:none" v-if="item.showType === 1">
+                <div
+                  class="img-box"
+                  style="pointer-events: none"
+                  v-if="item.showType === 1"
+                >
                   <img :src="item.content" alt="" />
                 </div>
-                <img :src="item.icon"  alt="" v-if="item.showType === 2" />
-                <div class="text-box" style="pointer-events:none" v-if="item.showType === 2">
+                <img :src="item.icon" alt="" v-if="item.showType === 2" />
+                <div
+                  class="text-box"
+                  style="pointer-events: none"
+                  v-if="item.showType === 2"
+                >
                   <p>{{ item.content }}</p>
                 </div>
-                <a
-                  :href="item.content"
-                  target="_blank"
-                  v-if="item.showType === 3"
-                >
-                  <img :src="item.icon" alt="" />
-                </a>
+                <a-tooltip placement="bottom">
+                  <template slot="title">
+                    <span>{{item.remark}}</span>
+                  </template>
+                  <a
+                    :href="item.content"
+                    target="_blank"
+                    v-if="item.showType === 3"
+                  >
+                    <img :src="item.icon" alt="" />
+                  </a>
+                </a-tooltip>
               </li>
+
               <li @click="getBanner">
                 <img src="../assets/images/next-b.svg" alt="" />
               </li>
@@ -102,10 +115,7 @@
               <nuxt-link :to="{ name: 'article-id', params: { id: item.id } }">
                 <div class="img-box">
                   <img
-                    :src="
-                      item.thumbnail ||
-                      ListImg[randomImgNum[index]].img
-                    "
+                    :src="item.thumbnail || ListImg[randomImgNum[index]].img"
                     alt=""
                   />
                 </div>
@@ -152,7 +162,12 @@
 
 <script>
 import { mapState } from "vuex";
-import { getrand,getRandomNumArr, scrollAnimation, getTime } from "../lib/public";
+import {
+  getrand,
+  getRandomNumArr,
+  scrollAnimation,
+  getTime,
+} from "../lib/public";
 import HomeList from "../components/HomeList";
 import PagInation from "../components/PagInation";
 export default {
@@ -168,9 +183,6 @@ export default {
       store.dispatch("getFeature"),
       store.dispatch("getBlogList", { page: 1 }),
     ]);
-    //修复页面高度变化时，推荐列表的图片也变化的问题
-    let randomImgNum = [];
-    randomImgNum = getRandomNumArr(0, 13,3)
     if (
       socialList.status === "fulfilled" &&
       featureList.status === "fulfilled" &&
@@ -182,6 +194,9 @@ export default {
         list[i].thumbnail =
           list[i].thumbnail || ListImg[getrand(0, ListImg.length - 1)].img;
       }
+      //修复页面高度变化时，推荐列表的图片也变化的问题
+      let randomImgNum = [];
+      randomImgNum = getRandomNumArr(0, ListImg.length - 1, 3);
       return {
         banner: `url('${banner[num].img}')`,
         socialList: socialList.value.models,
@@ -266,11 +281,11 @@ export default {
   overflow: hidden;
   height: auto;
   @media (max-width: 768px) {
-     display: none;
+    display: none;
   }
 
- // 插入背景图片
-  &:before {  
+  // 插入背景图片
+  &:before {
     content: "";
     position: absolute;
     top: 0;
@@ -279,7 +294,7 @@ export default {
     right: 0;
     z-index: 3;
     background-attachment: fixed;
-    background-image: url("../assets/images/grid.png");  
+    background-image: url("../assets/images/grid.png");
   }
 
   @keyframes move_wave {
@@ -431,7 +446,7 @@ export default {
     }
   }
 
- //当窗口宽度大于768px时才会开启波浪特性
+  //当窗口宽度大于768px时才会开启波浪特性
   @media (max-width: 768px) {
     .waveWrapper {
       display: none;
@@ -476,10 +491,10 @@ export default {
       padding: 5px;
       opacity: 1;
       transform: rotate(0);
-      transition: all ease 1s;
+      transition: all ease 2s;
       width: 130px;
       height: 130px;
-      border-radius: 100%;    
+      border-radius: 100%;
     }
   }
 
@@ -790,7 +805,7 @@ export default {
   background-color: rgba(255, 255, 255, 0.8);
   animation: main 1s;
   @media (max-width: 768px) {
-     margin-top: 30px;
+    margin-top: 30px;
   }
 
   @keyframes main {

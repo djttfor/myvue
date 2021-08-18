@@ -17,81 +17,179 @@
         </p>
       </div>
     </div>
+    
     <div class="main-wrapper">
       <div class="flex-items">
         <div class="cell">
           <!-- 内容 -->
           <div class="entry-content" id="content" v-html="compiledMarkdown" />
-          <!-- <a
-            class="aly"
-            href="https://www.aliyun.com/1111/new?userCode=luwg14ys"
-            target="_blank"
-          >
-            <img
-              src="https://image.bygit.cn/helloblog/image/3eb0fd43-02b9-422f-9e40-ee7775588906.jpg"
-              alt=""
-            />
-          </a>
-          <a
-            class="aly-mobile"
-            href="https://www.aliyun.com/1111/new?userCode=luwg14ys"
-            target="_blank"
-          >
-            <img
-              src="https://image.bygit.cn/helloblog/image/36b9f2c9-c1db-4b03-b754-2643c777e492.jpg"
-              alt=""
-            />
-          </a> -->
+          <div id="commentArea" style="height:50px"></div>
           <!-- 打赏 -->
           <Socials v-if="socialsList.length > 0" :list="socialsList" />
+          
           <!-- 评论 -->
           <div class="comments-wrapper">
             <h3 class="comments-list-title">
               Comments |
-              <span class="noticom">{{ pageInfo.total }} 条评论 </span>
+              <span class="noticom">{{ myTotal }} 条评论 </span>
             </h3>
-            <ul class="commentwrap">
-              <li
-                class="comment"
-                v-for="(item, index) in commentsList"
-                :key="index"
-              >
-                <div class="commentinfo flex-items">
-                  <img :src="item.authorAvatar" alt="" />
-                  <div class="commeta cell">
-                    <h2>{{ item.authorName }}</h2>
-                    <h3>
-                      {{ getTime(item.createTime) }} |
-                      {{ getFormatTime(item.createTime) }}
-                    </h3>
+            <!-- 评论区 -->
+            <div >
+              <ul class="commentwrap">
+                <li
+                  class="comment"
+                  v-for="(item, index) in myCommentsList"
+                  :key="index"
+                >
+                  <div class="commentinfo flex-items">
+                    <!-- 头像 -->
+                    <img :src="item.authorAvatar" alt="" />
+                    <!-- 评论时间 -->
+                    <div class="commeta cell">
+                      <h2>{{ item.authorName }}</h2>
+                      <h3>
+                        {{ getFullTime(item.createTime) }} |
+                        {{ getFormatTime(item.createTime) }}
+                      </h3>
+                    </div>
+                    <span
+                      @click="
+                        reply(item.id, item.authorName, 'comment' + item.id)
+                      "
+                      class="comment-reply-link"
+                      >回复</span
+                    >
                   </div>
-                  <span
-                    @click="reply(item.id, item.authorName)"
-                    class="comment-reply-link"
-                    >Reply</span
+                  <!-- 评论内容 -->
+                  <div class="body">
+                    <p>
+                      {{ item.content }}
+                    </p>
+                  </div>
+                  <!-- 回复框 -->
+                  <div
+                    :class="
+                      replyIndex === item.id ? 'comment-textarea ' : 'divShow'
+                    "
+                    :key="index"
                   >
-                </div>
-                <div class="body">
-                  <p>
-                    <span v-if="item.parentUserName"
-                      >@{{ item.parentUserName }}</span
-                    >{{ item.content }}
-                  </p>
-                </div>
-                <hr />
-              </li>
-            </ul>
+                    <div style="margin-bottom: 5px" @click="cancelReply">
+                      <a-button size="small" type="primary">关闭回复</a-button>
+                    </div>
+                    <textarea
+                      placeholder="你是我一生只会遇见一次的惊喜 ..."
+                      name="comment"
+                      class="commentbody"
+                      :id="'comment' + item.id"
+                      rows="5"
+                      tabIndex="4"
+                      v-model="replyValue"
+                    />
+                    <div class="form-submit">
+                      <input
+                        @click="addReplyComment(item.id, item.authorId)"
+                        name="submit"
+                        type="submit"
+                        id="submit"
+                        class="submit"
+                        value="BiuBiuBiu~"
+                      />
+                    </div>
+                  </div>
+                  <!-- 评论下的回复 -->
+                  <ul class="commentwrap" v-if="item.replyCommentsList">
+                    <li
+                      class="comment replyComment"
+                      v-for="(subItem, index) in item.replyCommentsList"
+                      :key="index"
+                    >
+                      <div class="commentinfo flex-items">
+                        <!-- 头像 -->
+                        <img :src="subItem.authorAvatar" alt="" />
+                        <!-- 评论时间 -->
+                        <div class="commeta cell">
+                          <h2>{{ subItem.authorName }}</h2>
+                          <h3>
+                            {{ getFullTime(subItem.createTime) }}
+                            <!-- | {{ getFormatTime(subItem.createTime) }} -->
+                          </h3>
+                        </div>
+                        <span
+                          @click="
+                            reply(
+                              subItem.id,
+                              subItem.authorName,
+                              'comment' + subItem.id
+                            )
+                          "
+                          class="comment-reply-link"
+                          >回复</span
+                        >
+                      </div>
+                      <!-- 评论内容 -->
+                      <div class="body">
+                        <p >
+                          <span style="font-size: 15px"
+                            >@{{ subItem.replyAuthorName }}</span
+                          >
+                          {{ subItem.content }}
+                        </p>
+                      </div>
+                      <!-- 回复框 -->
+                      <div
+                        :class="
+                          replyIndex === subItem.id
+                            ? 'comment-textarea '
+                            : 'divShow'
+                        "
+                      >
+                        <div style="margin-bottom: 5px" @click="cancelReply">
+                          <a-button size="small" type="primary"
+                            >关闭回复</a-button
+                          >
+                        </div>
+                        <textarea
+                          placeholder="你是我一生只会遇见一次的惊喜 ..."
+                          name="comment"
+                          class="commentbody"
+                          :id="'comment' + subItem.id"
+                          rows="5"
+                          tabIndex="4"
+                          v-model="replyValue"
+                        />
+                        <div class="form-submit">
+                          <input
+                            @click="addReplyComment(item.id, item.authorId)"
+                            name="submit"
+                            type="submit"
+                            id="submit"
+                            class="submit"
+                            value="BiuBiuBiu~"
+                          />
+                        </div>
+                      </div>
+                      <hr />
+                    </li>
+                  </ul>
+                  <div style="margin-left:60px" v-if="item.replyCount>2">
+                    <a href="javascript:void(0)" @click="showAllReply(index,item.id,item.replyCount)" >查看全部{{item.replyCount}}条回复</a>
+                  </div>
+                  <hr />
+                </li>
+              </ul>
+            </div>
             <a-pagination
               class="pagination"
               hideOnSinglePage
               size="small"
-              @change="getComments"
+              @change="getMyComments"
               :item-render="itemRender"
-              :current="pageInfo.page"
+              :current="myPageInfo.page"
               :pageSize="5"
-              :total="pageInfo.total"
+              :total="myPageInfo.total"
             />
-            <div class="comment-textarea" v-if="data.isComment">
+            <!-- 评论框 -->
+            <div class="comment-textarea" v-if="data.isComment && !replyFlag">
               <textarea
                 placeholder="你是我一生只会遇见一次的惊喜 ..."
                 name="comment"
@@ -112,6 +210,7 @@
                 />
               </div>
             </div>
+            <span v-else-if="replyFlag"></span>
             <p v-else clss="text">此处评论已关闭</p>
           </div>
           <!-- 评论-end -->
@@ -133,7 +232,7 @@
 </template>
 
 <script>
-import { getrand, getTime, getFormatTime } from "../../lib/public";
+import { getrand, getTime, getFormatTime, getFullTime,fixedLineStrLength } from "../../lib/public";
 import { mapState } from "vuex";
 import marked from "marked";
 import Clipboard from "clipboard";
@@ -150,7 +249,7 @@ marked.setOptions({
 export default {
   head() {
     return {
-      title: `Astolfo-${this.data.title}`,
+      title: `${this.data.title} | Astolfo`,
     };
   },
   components: {
@@ -159,22 +258,31 @@ export default {
   },
   async asyncData({ params, store, error }) {
     const id = parseInt(params.id);
-    const [data, comments] = await Promise.allSettled([
+    const [data, myComments] = await Promise.allSettled([
       store.dispatch("getPosts", { id }),
-      store.dispatch("getComments", { page: 1, postsId: id }),
+      //store.dispatch("getComments", { page: 1, postsId: id }),
+      store.dispatch("getMyComments", {
+        current: 1,
+        pageSize: 5,
+        postsId: id,
+        parentId: 0,
+      }),
     ]);
     const ListImg = store.state.ListImg;
     if (
       data.status === "fulfilled" &&
       data.value.success === 1 &&
-      comments.status === "fulfilled"
+      myComments.status === "fulfilled"
     ) {
       return {
         id,
         data: data.value.model,
-        commentsList: comments.value.models,
-        pageInfo: comments.value.pageInfo,
+        //commentsList: comments.value.models,
+        //pageInfo: comments.value.pageInfo,
         topImg: ListImg[getrand(0, ListImg.length - 1)].img,
+        myCommentsList: myComments.value.models,
+        myPageInfo: myComments.value.pageInfo,
+        myTotal: myComments.value.extra,
       };
     }
     error({ statusCode: 404 });
@@ -188,12 +296,20 @@ export default {
       anchors: [],
       tocItems: [],
       index: [],
+      replyFlag: false, //用于点击恢复时关闭下面的评论框
+      replyIndex: -1, //用于打开回复框
+      subReplyIndex: "",
+      replyValue: "",
+      current: 1,
+      replyList: []
     };
   },
   computed: {
     ...mapState(["userInfo", "socialsList", "config"]),
     //此函数将markdown内容进一步的转换
     compiledMarkdown() {
+      // console.log(JSON.stringify(this.myCommentsList));
+      // console.log(JSON.stringify(this.myPageInfo));
       rendererMD.heading = (text, level) => {
         const anchor = this.add(text, level);
         return `<h${level} id="${anchor}">${text}</h${level}>`;
@@ -208,14 +324,19 @@ export default {
     if (this.clipboard) this.clipboard.destroy();
   },
   methods: {
-    //评论下一页
-    async getComments(page) {
-      const data = await this.$store.dispatch("getComments", {
-        page,
+    async getMyComments(page) {
+      this.current = page;
+      const data = await this.$store.dispatch("getMyComments", {
+        current: page,
+        pageSize: 5,
         postsId: this.id,
+        parentId: 0,
       });
-      this.commentsList = data.models;
-      this.pageInfo = data.pageInfo;
+      this.myCommentsList = data.models;
+      this.myPageInfo = data.pageInfo;
+      //window.location.hash = '#commentArea' 
+      var maodian = document.getElementById("commentArea")
+      maodian.scrollIntoView({ behavior: 'smooth' })
     },
     // 添加评论
     async addComments() {
@@ -225,32 +346,82 @@ export default {
         this.$message.warning("please type a comment");
         return false;
       }
-      if (parentId) {
-        let content = value.replace(preContent, "");
-        if (content === "") {
-          this.$message.warning("please type a comment");
-          return false;
-        }
-        if (value.indexOf(preContent, 0) !== -1) {
-          data["parentId"] = parentId;
-          data["content"] = content;
-        }
+      if (value.length > 254) {
+        this.$message.warning("最多255个字符");
+        return false;
       }
       const res = await this.$store.dispatch("addComments", data);
       if (res.success === 1) {
         this.$message.success("评论成功");
         this.value = "";
-        this.parentId = "";
-        this.getComments(1);
+        this.getMyComments(this.current);
+        this.cancelReply();
       } else {
         this.login();
       }
     },
+    //添加回复
+    async addReplyComment(parentId, replyAuthorId) {
+      if (this.replyValue === "") {
+        this.$message.warning("please type a comment");
+        return false;
+      }
+      if (this.replyValue.length > 254) {
+        this.$message.warning("最多255个字符");
+        return false;
+      }
+      let reoplyValueTemp = this.replyValue;
+      reoplyValueTemp = reoplyValueTemp.substring(
+        this.preContent.length - 1,
+        reoplyValueTemp.length
+      );
+      const data = {
+        replyAuthorId: replyAuthorId,
+        content: reoplyValueTemp,
+        parentId: parentId,
+        postsId: this.id,
+      };
+      const res = await this.$store.dispatch("replyComment", data);
+      if (res.success === 1) {
+        this.$message.success("评论成功");
+        this.replyValue = "";
+        this.getMyComments(this.current);
+        this.cancelReply();
+      } else {
+        this.login();
+      }
+    },
+    //查看所有评论
+    async showAllReply(index,id,replyCount){
+      const data = {postsId: this.id, parentId: id, replyCount: replyCount};
+      const res = await this.$store.dispatch("getReplyList", data);
+      if(res.success === 1){
+        this.replyList = res.models;
+        this.myCommentsList[index].replyCommentsList = this.replyList;
+        this.myCommentsList[index].replyCount = 0;
+      }
+    },
     //@某人
-    reply(parentId, authorName) {
-      this.value = `@${authorName}：`;
+    reply(parentId, authorName, commentId) {
+      if (this.replyIndex === -1) {
+        this.replyFlag = true;
+      } else {
+        this.replyFlag = false;
+      }
+      this.replyIndex = parentId;
+
+      this.replyValue = `@${authorName}：`;
       this.preContent = `@${authorName}：`;
       this.parentId = parentId;
+      //获得焦点
+      setTimeout(() => {
+        document.getElementById(commentId).focus();
+      }, 50);
+    },
+    //关闭回复
+    cancelReply() {
+      this.replyIndex = -1;
+      this.replyFlag = false;
     },
     //获取登录
     async login() {
@@ -292,6 +463,7 @@ export default {
       return originalElement;
     },
     //绑定Click 渲染代码高亮，行号
+
     bindClick() {
       this.$nextTick(() => {
         let content = document.getElementById("content");
@@ -316,7 +488,9 @@ export default {
           let median = pre[i]
             .querySelector("code")
             .innerHTML.replace(/<\/?.+?>/g, "");
-          let res = median.replace(/ /g, "");
+          let res = median;
+          //let res = median.replace(/ /g, "");
+          //console.log(res);
           let a = `<a class="copy-code" data-clipboard-action="copy" data-clipboard-target="#copy${i}"><i class="iconfont icon-fuzhi"></a>`;
           let b = `<a class="enlarge"><i class="iconfont icon-fangda"></a>`;
           let c = `<textarea style="position: absolute;top: -9999px;left: -9999px;z-index: -9999;" id="copy${i}">${res}</textarea>`;
@@ -350,8 +524,14 @@ export default {
     getFormatTime(time) {
       return getFormatTime(time);
     },
+    getFullTime(time) {
+      return getFullTime(time);
+    },
     getrand(m, n) {
       return getrand(m, n);
+    },
+    fixedLineStrLength(str,len){
+      return fixedLineStrLength(str,len);
     },
     //渲染目录开始
     add(text, level) {
@@ -397,6 +577,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+p{
+  word-wrap: break-word;word-break: break-all;
+}
+textarea {
+  resize: none;
+}
 .article-wrapper {
   .pattern-center-blank {
     padding-top: 75px;
@@ -924,8 +1110,15 @@ export default {
       color: #909090;
     }
   }
+  .replyCommentWrap {
+    margin-top: 5px;
+  }
   .commentwrap {
     margin: 0 auto 30px;
+    .replyComment {
+      width: 80%;
+      margin: 0 auto;
+    }
     .comment {
       .commentinfo {
         img {
@@ -1111,5 +1304,8 @@ export default {
   @media (max-width: 768px) {
     display: block;
   }
+}
+.divShow {
+  display: none;
 }
 </style>

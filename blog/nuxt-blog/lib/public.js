@@ -30,6 +30,17 @@ export const getTime = (time) => {
     return (Y + M + D)
 };
 
+export const getFullTime = (time) => {
+    const date = new Date(time);
+    let Y = date.getFullYear() + '-';
+    let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    let D = (date.getDate() <10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    let h = (date.getHours() <10 ? '0' + date.getHours() : date.getHours()) + ':';
+    let m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    let s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+    return (Y + M + D + h + m + s)
+};
+
 const getUnix = () => {
     const date = new Date();
     return date.getTime();
@@ -109,4 +120,18 @@ export const scrollAnimation = (currentY, targetY) => {
             window.scrollTo(_currentY, targetY);
         }
     }, 1);
+}
+
+export const fixedLineStrLength = (str,length) =>{
+    if(!str || str===''){
+        return ''
+    }
+    let newStr = ''
+    if(str.length>length){
+        newStr = str.substring(0,length) + '\r\n';
+        newStr += fixedLineStrLength(str.substring(length),length);
+    }else{
+        return str;
+    }
+    return newStr;
 }

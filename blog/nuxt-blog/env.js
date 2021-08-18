@@ -5,6 +5,6 @@ module.exports = {
     },
     pro: {
         MODE: 'production',
-        ENV_API: 'http://www.djttfor.cn'  // 正式服务器地址
+        ENV_API: 'https://www.djttfor.cn'  // 正式服务器地址
     }
 }

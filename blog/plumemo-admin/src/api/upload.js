@@ -8,3 +8,17 @@ export function uploadFile (data) {
     data: data
   })
 }
+
+export function selectPage(data) {
+  return axios({
+    url: `/myImg/selectPage/${data.current}/${data.pageSize}/${data.imgType}`,
+    method: 'get',
+  })
+}
+
+export function removeImg(data) {
+  return axios({
+    url: `/myImg/removeImg/${data.id}`,
+    method: 'get',
+  })
+}

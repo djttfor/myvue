@@ -209,6 +209,22 @@ export const asyncRouterMap = [
                 meta: { title: '修改密码', keepAlive: true, permission: [ 'user' ] }
               }
             ]
+          },
+          {
+            path: '/account/imageManager',
+            name: 'imageManager',
+            component: () => import('@/views/account/imageManager/index'),
+            meta: {title: '文件上传', hideHeader: true, permission: [ 'user' ]},
+            redirect: '/account/imageManager/fileManager',
+            hideChildrenInMenu: true,
+            children: [
+              {
+                path: '/account/imageManager/fileManager',
+                name: 'fileManager',
+                component: () => import('@/views/account/imageManager/fileManager'),
+                meta: { title: '文件管理', permission: [ 'user' ] }
+              },
+            ]
           }
         ]
       }
